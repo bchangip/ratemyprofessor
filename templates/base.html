@@ -20,7 +20,8 @@
 				<a id="logo-container" href="/webapp/" class="brand-logo">RateMyProfessor</a>
 				<ul class="right hide-on-med-and-down">
 					{% if user.is_authenticated %}
-						<li>Bienvenido id:{{user.id}}, username:{{user.username}}!</li>
+						<!-- <li>Bienvenido id:{{user.id}}, username:{{user.username}}!</li> -->
+						<li>Bienvenido {{user.username}}!</li>
 						<li><a href="/accounts/logout/">Salir</a></li>
 					{% else %}
 						<li><a href="/accounts/login/">Ingresar</a></li>
@@ -29,6 +30,7 @@
 
 				<ul id="nav-mobile" class="side-nav fixed grey lighten-1" style="width: 90px; margin-top: 65px">
 					<li><a href="/webapp/searchPage" style="height: 90px"><i class="material-icons large">search</i></a></li>
+					<li><a href="/webapp/addPage" style="height: 90px"><i class="material-icons large">add</i></a></li>
 					<li><a href="/webapp/profilePage" style="height: 90px"><i class="material-icons large">person</i></a></li>
 				</ul>
 				<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>

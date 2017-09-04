@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}RateMyProfessor - Agregar{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col s12 green lighten-4">
+				<a href="/webapp/addProfesorPage">
+					<div class="icon-block">
+						<h1 class="center green-text"><i class="material-icons">thumbs_up_down</i></h1>
+						<h5 class="center">Agregar una reseña</h5>
+					</div>
+				</a>
+				<br>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s5 green lighten-4">
+				<a href="/webapp/addProfesorPage">
+					<div class="icon-block">
+						<h1 class="center green-text"><i class="material-icons">face</i></h1>
+						<h5 class="center">Agregar un profesor</h5>
+					</div>
+				</a>
+				<br>
+			</div>
+
+			<div class="col s2"></div>
+
+			<div class="col s5 green lighten-4">
+				<a href="/webapp/addCoursePage">
+					<div class="icon-block">
+						<h1 class="center green-text"><i class="material-icons">class</i></h1>
+						<h5 class="center">Agregar un curso</h5>
+					</div>
+				</a>
+				<br>
+			</div>
+		</div>
+	</div>
+{% endblock %}

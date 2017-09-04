@@ -34,20 +34,38 @@
 			</div>
 		</div>
 
+		<div class="fixed-action-btn" style="bottom: 130px; right: 24px;">
+			<a class="btn-floating btn-large red modal-trigger green darken-4" data-target="editProfileModal" id='editProfileModalTrigger'>
+				<i class="large material-icons">create</i>
+			</a>
+		</div>
+
 		<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-			<a class="btn-floating btn-large red modal-trigger green darken-4" data-target="addModal" id='addModalTrigger'>
+			<a class="btn-floating btn-large red modal-trigger green darken-4" data-target="addReviewModal" id='addReviewModalTrigger'>
 				<i class="large material-icons">add</i>
 			</a>
 		</div>
 
-		<!-- Modal Structure -->
-		<div id="addModal" class="modal bottom-sheet">
+
+		<!-- Edit profile modal structure -->
+		<div id="editProfileModal" class="modal bottom-sheet">
 			<div class="modal-content">
-				<h4>Modal Header</h4>
-				<p>A bunch of text</p>
+				<h4>Editar perfil</h4>
+				<p>Formulario de edicion de perfil</p>
 			</div>
 			<div class="modal-footer">
-				<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+				<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
+			</div>
+		</div>
+
+		<!-- Add review modal structure -->
+		<div id="addReviewModal" class="modal bottom-sheet">
+			<div class="modal-content">
+				<h4>Agregar reseña</h4>
+				<p>Formulario de reseña</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
 			</div>
 		</div>
 
@@ -83,7 +101,14 @@
 						</div>
 
 						<div class="row">
-							<div class="col s12">
+							<div class="col s6">
+								<div class="left-align">
+									<a class="waves-effect waves-light btn-large"><i class="material-icons left">thumb_up</i>23</a>
+									<a class="waves-effect waves-light btn-large"><i class="material-icons left">thumb_down</i>5</a>
+								</div>
+							</div>
+
+							<div class="col s6">
 								<div class="right-align">
 									Bryan Chan - Ingenieria en Ciencias de la Computacion y TI
 								</div>
@@ -120,7 +145,14 @@
 						</div>
 
 						<div class="row">
-							<div class="col s12">
+							<div class="col s6">
+								<div class="left-align">
+									<a class="waves-effect waves-light btn-large"><i class="material-icons left">thumb_up</i>15</a>
+									<a class="waves-effect waves-light btn-large"><i class="material-icons left">thumb_down</i>10</a>
+								</div>
+							</div>
+
+							<div class="col s6">
 								<div class="right-align">
 									Bryan Chan - Ingenieria en Ciencias de la Computacion y TI
 								</div>

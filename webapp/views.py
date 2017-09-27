@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 import registration.signals
+from models import Student, StudentForm, Review, ReviewForm, Course, CourseForm, Professor, ProfessorForm
+from django.forms import modelformset_factory
+import time
 
 # Create connection with postgres DB
 import psycopg2
@@ -28,29 +31,51 @@ def homepage(request):
 
 @login_required
 def profilePage(request):
-	'''
-	id INT,
-	username VARCHAR(10),
-	firstname VARCHAR(10),
-	lastname VARCHAR(10),
-	email VARCHAR(40),
-	career VARCHAR(40),
-	interests VARCHAR(15)[],
-	highschool VARCHAR(40),
-	'''
-	print("Performing SELECT with user:")
-	for info in request.user:
-		print info
-	cur.execute('''SELECT * FROM student WHERE username='bchangip';''')
-	result = cur.fetchone()
-	if(result is not None):
-		id, username, firstname, lastname, email, career, interests, highschool = result
-		# print username
+	studentData = Student.objects.get(pk=request.user.id)
+	if(request.method == 'GET'):
+		# print(StudentForm(instance=studentData))
+		print(ReviewForm())
 
-	# print(rows[0][1])
-	# print rows
+		return render(
+			request,
+			'webapp/profile.html',
+			{
+				'username': studentData.username,
+				'firstname': studentData.firstname,
+				'lastname': studentData.lastname,
+				'email': studentData.email,
+				'career': studentData.career,
+				'interest1': studentData.interest1,
+				'interest2': studentData.interest2,
+				'interest3': studentData.interest3,
+				'highschool': studentData.highschool,
+				'editProfileForm': StudentForm(instance=studentData),
+				'addReviewForm': ReviewForm()
+			}
+		)
+	else:
+		studentData = StudentForm(request.POST)
+		if studentData.is_valid():
+			studentData.save()
+			print("Perfil actualizado.")
 
-	return render(request, 'webapp/profile.html')
+		studentData = Student.objects.get(pk=request.user.id)
+		return render(
+			request,
+			'webapp/profile.html',
+			{
+				'username': studentData.username,
+				'firstname': studentData.firstname,
+				'lastname': studentData.lastname,
+				'email': studentData.email,
+				'career': studentData.career,
+				'interest1': studentData.interest1,
+				'interest2': studentData.interest2,
+				'interest3': studentData.interest3,
+				'highschool': studentData.highschool,
+				'editProfileForm': StudentForm(instance=studentData)
+			}
+		)
 
 @login_required
 def addPage(request):
@@ -58,11 +83,70 @@ def addPage(request):
 
 @login_required
 def addProfesorPage(request):
-	return render(request, 'webapp/addProfesor.html')
+	if(request.method == 'GET'):
+		return render(
+			request, 
+			'webapp/addProfesor.html',
+			{
+				'addProfessorForm': ProfessorForm()
+			}
+		)
+	else:
+		newProfessor = ProfessorForm(request.POST)
+		if newProfessor.is_valid():
+			newProfessor.save()
+		return render(
+			request, 
+			'webapp/addProfesor.html',
+			{
+				'addProfessorForm': ProfessorForm()
+			}
+		)
 
 @login_required
 def addCoursePage(request):
-	return render(request, 'webapp/addCourse.html')
+	if(request.method == 'GET'):
+		return render(
+			request, 
+			'webapp/addCourse.html',
+			{
+				'addCourseForm': CourseForm()
+			}
+		)
+	else:
+		newCourse = CourseForm(request.POST)
+		if newCourse.is_valid():
+			newCourse.save()
+		return render(
+			request, 
+			'webapp/addCourse.html',
+			{
+				'addCourseForm': CourseForm()
+			}
+		)
+
+
+@login_required
+def addReviewPage(request):
+	if(request.method == 'GET'):
+		return render(
+			request, 
+			'webapp/addReview.html',
+			{
+				'addReviewForm': ReviewForm()
+			}
+		)
+	else:
+		newReview = ReviewForm(request.POST)
+		if newReview.is_valid():
+			newReview.save()
+		return render(
+			request, 
+			'webapp/addReview.html',
+			{
+				'addReviewForm': ReviewForm()
+			}
+		)
 
 
 @login_required
@@ -77,21 +161,33 @@ def professorSearchPage(request):
 def courseSearchPage(request):
 	return render(request, 'webapp/courseSearch.html')
 
-@login_required
-def loginTest(request):
-	return HttpResponse("You shouldnt see this.")
+def jsonPage(request):
+	query = request.GET.get('query', '')
+	suggestionSize = request.GET.get('suggestionSize', '')
+
+	print("Query: "+query)
+	print("Suggestion Size: "+suggestionSize)
+
+	time.sleep(0.5)
+
+
+	return JsonResponse([{'id': 0, 'name': 'Bryan'}, {'id': 1, 'name': 'Michael'}, {'id': 2, 'name': 'Emily'}], safe=False)
 
 #Signals
 from django.core.signals import request_finished
 from django.dispatch import receiver
 
-@receiver(request_finished)
-def my_callback(sender, **kwargs):
-    print("Request finished!")
+# @receiver(request_finished)
+# def my_callback(sender, **kwargs):
+#     print("Request finished!")
 
 @receiver(registration.signals.user_registered)
 def userRegistered(sender, user, request, **kwargs):
 	#Create entry in users table
-	cur.execute("INSERT INTO student VALUES ("+str(user.id)+", '"+str(user.username)+"', '', '', '"+str(user.email)+"', '', ARRAY[]::VARCHAR(15)[], '')")
+	# cur.execute("INSERT INTO student VALUES ("+str(user.id)+", '"+str(user.username)+"', '', '', '"+str(user.email)+"', '', ARRAY[]::VARCHAR(15)[], '')")
+
+	#Create user on Student model
+	tempStudent = Student(pk=user.id, username=user.username, email=user.email)
+	tempStudent.save()
 
 	print "A new user registered, with id:"+str(user.id)+" username:"+str(user.username)+" email:"+str(user.email)

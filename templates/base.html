@@ -21,7 +21,7 @@
 				<ul class="right hide-on-med-and-down">
 					{% if user.is_authenticated %}
 						<!-- <li>Bienvenido id:{{user.id}}, username:{{user.username}}!</li> -->
-						<li>Bienvenido {{user.username}}!</li>
+						<li>Bienvenido {{ username }}!</li>
 						<li><a href="/accounts/logout/">Salir</a></li>
 					{% else %}
 						<li><a href="/accounts/login/">Ingresar</a></li>

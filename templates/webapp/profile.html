@@ -10,7 +10,7 @@
 				<div class="card">
 					<div class="card-image">
 						<img src="{% static 'tempImages/avatar.png' %}">
-						<span class="card-title">Bryan Chan</span>
+						<span class="card-title">{{ firstname }} {{ lastname }} - {{ username }}</span>
 					</div>
 					<div class="card-action">
 						<a href="#" class="blue-text">Facebook</a>
@@ -21,7 +21,7 @@
 			<div class='col m6'>
 				<br>
 				<div>
-					Carrera: Ingenieria en Ciencias de la Computacion y TI
+					Carrera: {{ career }}
 				</div>
 				<br>
 				<div>
@@ -52,6 +52,11 @@
 			<div class="modal-content">
 				<h4>Editar perfil</h4>
 				<p>Formulario de edicion de perfil</p>
+				<form method='POST' action=''>
+					{% csrf_token %}
+					{{ editProfileForm }}
+					<input type="submit" value="Submit">
+				</form>
 			</div>
 			<div class="modal-footer">
 				<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
@@ -63,6 +68,11 @@
 			<div class="modal-content">
 				<h4>Agregar reseña</h4>
 				<p>Formulario de reseña</p>
+				<form method='POST' action=''>
+					{% csrf_token %}
+					{{ addReviewForm }}
+					<input type="submit" value="Submit">
+				</form>
 			</div>
 			<div class="modal-footer">
 				<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Enviar</a>
@@ -169,4 +179,5 @@
 
 {% block readyScripts %}
 		$('.modal').modal();
+		$('select').material_select();
 {% endblock %}

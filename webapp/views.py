@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 import registration.signals
-from models import Student, StudentForm, Review, ReviewForm, Course, CourseForm, Professor, ProfessorForm
+from .models import Student, StudentForm, Review, ReviewForm, Course, CourseForm, Professor, ProfessorForm
 from django.forms import modelformset_factory
 import time
 

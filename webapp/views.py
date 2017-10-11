@@ -13,8 +13,7 @@ try:
     conn = psycopg2.connect("dbname='ratemyprofessor' user='bchangip' host='localhost' password='bchangip'")
     conn.autocommit = True;
 except:
-	continue
-    # print "Connection to DB failed."
+	print("Connection to DB failed.")
 
 cur = conn.cursor();
 

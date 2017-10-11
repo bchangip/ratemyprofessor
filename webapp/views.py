@@ -13,15 +13,15 @@ try:
     conn = psycopg2.connect("dbname='ratemyprofessor' user='bchangip' host='localhost' password='bchangip'")
     conn.autocommit = True;
 except:
-    print "Connection to DB failed."
+    # print "Connection to DB failed."
 
 cur = conn.cursor();
 
 # cur.execute('''INSERT INTO student VALUES (1, 'bchangip', 'Bryan', 'Chan', 'xchangip@gmail.com', 'compu', ARRAY['Progra', 'Musica'], 'Bressani')''')
-# print("Performing SELECT")
+# # print("Performing SELECT")
 # cur.execute('''SELECT firstname FROM student;''')
 # rows = cur.fetchall()
-# print rows
+# # print rows
 
 
 
@@ -33,8 +33,8 @@ def homepage(request):
 def profilePage(request):
 	studentData = Student.objects.get(pk=request.user.id)
 	if(request.method == 'GET'):
-		# print(StudentForm(instance=studentData))
-		print(ReviewForm())
+		# # print(StudentForm(instance=studentData))
+		# print(ReviewForm())
 
 		return render(
 			request,
@@ -57,7 +57,7 @@ def profilePage(request):
 		studentData = StudentForm(request.POST)
 		if studentData.is_valid():
 			studentData.save()
-			print("Perfil actualizado.")
+			# print("Perfil actualizado.")
 
 		studentData = Student.objects.get(pk=request.user.id)
 		return render(
@@ -118,10 +118,13 @@ def professorSearchPage(request):
 		query = ProfessorForm(request.POST)
 		if query.is_valid():
 			# Extract non empty fields and search
-			print "Query professor"
-			print request.POST['firstname']
-			print request.POST['lastname']
-			print Professor.objects.filter(firstname__icontains=request.POST['firstname'], lastname__icontains=request.POST['lastname'])
+			# print "Query professor"
+			# print request.POST['firstname']
+			# print request.POST['lastname']
+			# print Professor.objects.filter(
+				firstname__icontains=request.POST['firstname'], 
+				lastname__icontains=request.POST['lastname']
+			)
 			return render(request, 'webapp/professorSearchResults.html')	
 	return render(request, 'webapp/professorSearch.html')
 
@@ -161,8 +164,8 @@ def courseSearchPage(request):
 		query = CourseForm(request.POST)
 		if query.is_valid():
 			# Extract non empty fields and search
-			print "Query course: "
-			print request.POST['name']
+			# print "Query course: "
+			# print request.POST['name']
 			return render(request, 'webapp/courseSearchResults.html')	
 		return render(request, 'webapp/courseSearch.html')
 
@@ -213,8 +216,8 @@ def jsonPage(request):
 	query = request.GET.get('query', '')
 	suggestionSize = request.GET.get('suggestionSize', '')
 
-	print("Query: "+query)
-	print("Suggestion Size: "+suggestionSize)
+	# print("Query: "+query)
+	# print("Suggestion Size: "+suggestionSize)
 
 	time.sleep(0.5)
 
@@ -227,7 +230,7 @@ from django.dispatch import receiver
 
 # @receiver(request_finished)
 # def my_callback(sender, **kwargs):
-#     print("Request finished!")
+#     # print("Request finished!")
 
 @receiver(registration.signals.user_registered)
 def userRegistered(sender, user, request, **kwargs):
@@ -238,4 +241,4 @@ def userRegistered(sender, user, request, **kwargs):
 	tempStudent = Student(pk=user.id, username=user.username, email=user.email)
 	tempStudent.save()
 
-	print "A new user registered, with id:"+str(user.id)+" username:"+str(user.username)+" email:"+str(user.email)
+	# print "A new user registered, with id:"+str(user.id)+" username:"+str(user.username)+" email:"+str(user.email)

@@ -1,1 +1,1 @@
-web: gunicorn daiPractica7.wsgi --log-file -
+web: gunicorn ratemyprofessor.wsgi --log-file -

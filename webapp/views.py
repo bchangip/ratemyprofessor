@@ -103,6 +103,28 @@ def addProfesorPage(request):
 			}
 		)
 
+
+@login_required
+def professorSearchPage(request):
+	if(request.method == 'GET'):
+		return render(
+			request,
+			'webapp/professorSearch.html',
+			{
+				'professorSearchForm': ProfessorForm()
+			}
+		)
+	else:
+		query = ProfessorForm(request.POST)
+		if query.is_valid():
+			# Extract non empty fields and search
+			print "Query professor"
+			print request.POST['firstname']
+			print request.POST['lastname']
+			print Professor.objects.filter(firstname__icontains=request.POST['firstname'], lastname__icontains=request.POST['lastname'])
+			return render(request, 'webapp/professorSearchResults.html')	
+	return render(request, 'webapp/professorSearch.html')
+
 @login_required
 def addCoursePage(request):
 	if(request.method == 'GET'):
@@ -125,6 +147,24 @@ def addCoursePage(request):
 			}
 		)
 
+@login_required
+def courseSearchPage(request):
+	if(request.method == 'GET'):
+		return render(
+			request,
+			'webapp/courseSearch.html',
+			{
+				'courseSearchForm': CourseForm()
+			}
+		)
+	else:
+		query = CourseForm(request.POST)
+		if query.is_valid():
+			# Extract non empty fields and search
+			print "Query course: "
+			print request.POST['name']
+			return render(request, 'webapp/courseSearchResults.html')	
+		return render(request, 'webapp/courseSearch.html')
 
 @login_required
 def addReviewPage(request):
@@ -154,12 +194,20 @@ def searchPage(request):
 	return render(request, 'webapp/search.html')
 
 @login_required
-def professorSearchPage(request):
-	return render(request, 'webapp/professorSearch.html')
+def highSchoolRecommendedProfessorsPage(request):
+	return render(request, 'webapp/highSchoolRecommendedProfessors.html')
 
 @login_required
-def courseSearchPage(request):
-	return render(request, 'webapp/courseSearch.html')
+def highSchoolRecommendedCoursesPage(request):
+	return render(request, 'webapp/highSchoolRecommendedCourses.html')
+
+@login_required
+def interestsRecommendedProfessorsPage(request):
+	return render(request, 'webapp/interestsRecommendedProfessors.html')
+
+@login_required
+def interestsRecommendedCoursesPage(request):
+	return render(request, 'webapp/interestsRecommendedCourses.html')
 
 def jsonPage(request):
 	query = request.GET.get('query', '')

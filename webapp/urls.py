@@ -12,5 +12,9 @@ urlpatterns = [
 	url(r'searchPage/', views.searchPage, name='searchPage'),
 	url(r'professorSearchPage/', views.professorSearchPage, name='professorSearchPage'),
 	url(r'courseSearchPage/', views.courseSearchPage, name='courseSearchPage'),
+	url(r'highSchoolRecommendedProfessorsPage/', views.highSchoolRecommendedProfessorsPage, name='highSchoolRecommendedProfessorsPage'),
+	url(r'highSchoolRecommendedCoursesPage/', views.highSchoolRecommendedCoursesPage, name='highSchoolRecommendedCoursesPage'),
+	url(r'interestsRecommendedProfessorsPage/', views.interestsRecommendedProfessorsPage, name='interestsRecommendedProfessorsPage'),
+	url(r'interestsRecommendedCoursesPage/', views.interestsRecommendedCoursesPage, name='interestsRecommendedCoursesPage'),
     url(r'^$', views.homepage, name='homepage'),
 ]

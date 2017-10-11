@@ -4,7 +4,16 @@
 {% block title %}RateMyProfessor - Buscar{% endblock %}
 
 {% block content %}
-<div class="container">
-	Searching by course
-</div>
+	<div class="container">
+		Search course
+		<form method='POST' action=''>
+			{% csrf_token %}
+			{{ courseSearchForm }}
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+{% endblock %}
+
+{% block readyScripts %}
+	$('select').material_select();
 {% endblock %}

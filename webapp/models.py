@@ -17,8 +17,6 @@ class Student(models.Model):
 	interest3 = models.CharField(max_length=10, blank=True)
 	highschool = models.CharField(max_length=40)
 
-'interest1', 'interest2', 'interest3', 
-
 class StudentForm(ModelForm):
 	class Meta:
 		model = Student

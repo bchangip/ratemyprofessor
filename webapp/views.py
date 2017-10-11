@@ -122,7 +122,7 @@ def professorSearchPage(request):
 			# print "Query professor"
 			# print request.POST['firstname']
 			# print request.POST['lastname']
-			# print Professor.objects.filter(
+			print Professor.objects.filter(
 				firstname__icontains=request.POST['firstname'], 
 				lastname__icontains=request.POST['lastname']
 			)

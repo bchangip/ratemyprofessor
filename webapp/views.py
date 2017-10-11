@@ -6,17 +6,6 @@ from .models import Student, StudentForm, Review, ReviewForm, Course, CourseForm
 from django.forms import modelformset_factory
 import time
 
-# Create connection with postgres DB
-import psycopg2
-
-try:
-    conn = psycopg2.connect("dbname='ratemyprofessor' user='bchangip' host='localhost' password='bchangip'")
-    conn.autocommit = True;
-except:
-	print("Connection to DB failed.")
-
-cur = conn.cursor();
-
 # cur.execute('''INSERT INTO student VALUES (1, 'bchangip', 'Bryan', 'Chan', 'xchangip@gmail.com', 'compu', ARRAY['Progra', 'Musica'], 'Bressani')''')
 # # print("Performing SELECT")
 # cur.execute('''SELECT firstname FROM student;''')

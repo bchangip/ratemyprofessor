@@ -41,8 +41,8 @@ class ProfessorForm(ModelForm):
 
 class Review(models.Model):
 	idStudent = models.ForeignKey(Student, on_delete=models.CASCADE)
-	idCourse = models.ForeignKey(Course, on_delete=models.CASCADE)
-	idProfessor = models.ManyToManyField(Professor, on_delete=models.CASCADE)
+	idCourse = models.ManyToManyField(Course)
+	idProfessor = models.ManyToManyField(Professor)
 	rating = models.IntegerField()
 	comment = models.CharField(max_length=300)
 

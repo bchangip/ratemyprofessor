@@ -110,8 +110,9 @@ def professorSearchPage(request):
 			# print "Query professor"
 			# print request.POST['firstname']
 			# print request.POST['lastname']
-			print(Professor.objects.filter(firstname__icontains=request.POST['firstname'], lastname__icontains=request.POST['lastname']))
-			return render(request, 'webapp/professorSearchResults.html')	
+			return render(request, 'webapp/professorSearchResults.html', {
+				professors=Professor.objects.filter(firstname__icontains=request.POST['firstname'], lastname__icontains=request.POST['lastname'])
+			})	
 	return render(request, 'webapp/professorSearch.html')
 
 @login_required
@@ -169,7 +170,7 @@ def addReviewPage(request):
 		newReview = ReviewForm(request.POST)
 		if newReview.is_valid():
 			newReview.save()
-			
+
 		return render(
 			request, 
 			'webapp/addReview.html',

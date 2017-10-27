@@ -17,6 +17,9 @@ class Student(models.Model):
 	interest3 = models.CharField(max_length=10, blank=True)
 	highschool = models.CharField(max_length=40)
 
+	def __str__(self):
+		return (firstname+" "+lastname)
+
 class StudentForm(ModelForm):
 	class Meta:
 		model = Student
@@ -38,7 +41,7 @@ class Professor(models.Model):
 	lastname = models.CharField(max_length=10)
 
 	def __str__(self):
-		return self.firstname
+		return (self.firstname+" "+self.lastname)
 
 class ProfessorForm(ModelForm):
 	class Meta:

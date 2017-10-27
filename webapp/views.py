@@ -169,6 +169,7 @@ def addReviewPage(request):
 		newReview = ReviewForm(request.POST)
 		if newReview.is_valid():
 			newReview.save()
+			
 		return render(
 			request, 
 			'webapp/addReview.html',

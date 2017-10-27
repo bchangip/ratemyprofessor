@@ -25,6 +25,9 @@ class StudentForm(ModelForm):
 class Course(models.Model):
 	name = models.CharField(max_length=20)
 
+	def __str__(self):
+		return self.name
+
 class CourseForm(ModelForm):
 	class Meta:
 		model = Course
@@ -34,6 +37,9 @@ class Professor(models.Model):
 	firstname = models.CharField(max_length=10)
 	lastname = models.CharField(max_length=10)
 
+	def __str__(self):
+		return self.firstname
+
 class ProfessorForm(ModelForm):
 	class Meta:
 		model = Professor
@@ -41,8 +47,8 @@ class ProfessorForm(ModelForm):
 
 class Review(models.Model):
 	idStudent = models.ForeignKey(Student, on_delete=models.CASCADE)
-	idCourse = models.ManyToManyField(Course)
-	idProfessor = models.ManyToManyField(Professor)
+	idCourse = models.ForeignKey(Course, on_delete=models.CASCADE)
+	idProfessor = models.ForeignKey(Professor, on_delete=models.CASCADE)
 	rating = models.IntegerField()
 	comment = models.CharField(max_length=300)
 

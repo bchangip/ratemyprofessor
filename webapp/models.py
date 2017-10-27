@@ -18,7 +18,7 @@ class Student(models.Model):
 	highschool = models.CharField(max_length=40)
 
 	def __str__(self):
-		return (firstname+" "+lastname)
+		return (self.firstname+" "+self.lastname)
 
 class StudentForm(ModelForm):
 	class Meta:
@@ -26,7 +26,7 @@ class StudentForm(ModelForm):
 		fields = ['firstname', 'lastname', 'email', 'career', 'interest1', 'interest2', 'interest3', 'highschool']
 	
 class Course(models.Model):
-	name = models.CharField(max_length=20)
+	name = models.CharField(max_length=20, blank=True)
 
 	def __str__(self):
 		return self.name
@@ -37,8 +37,8 @@ class CourseForm(ModelForm):
 		fields = ['name']
 
 class Professor(models.Model):
-	firstname = models.CharField(max_length=10)
-	lastname = models.CharField(max_length=10)
+	firstname = models.CharField(max_length=10, blank=True)
+	lastname = models.CharField(max_length=10, blank=True)
 
 	def __str__(self):
 		return (self.firstname+" "+self.lastname)
@@ -59,6 +59,7 @@ class ReviewForm(ModelForm):
 	class Meta:
 		model = Review
 		fields = ['idCourse', 'idProfessor', 'rating', 'comment']
+
 
 class ReviewLike(models.Model):
 	idStudent = models.ForeignKey(Student, on_delete=models.CASCADE)

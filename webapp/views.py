@@ -111,9 +111,25 @@ def professorSearchPage(request):
 			# print request.POST['firstname']
 			# print request.POST['lastname']
 			return render(request, 'webapp/professorSearchResults.html', {
-				professors=Professor.objects.filter(firstname__icontains=request.POST['firstname'], lastname__icontains=request.POST['lastname'])
+				"professors": Professor.objects.filter(firstname__icontains=request.POST['firstname'], lastname__icontains=request.POST['lastname'])
 			})	
 	return render(request, 'webapp/professorSearch.html')
+
+@login_required
+def course(request, courseId):
+	courseData = Course.objects.get(id=courseId)
+	reviewsAttached = Review.objects.filter(idCourse=courseId)
+	for review in reviewsAttached:
+		review.rating = range(review.rating)
+
+	return render(
+		request, 
+		'webapp/course.html', 
+		{ 
+			'courseData': courseData,
+			'reviewsAttached': reviewsAttached
+		}
+	)
 
 @login_required
 def addCoursePage(request):
@@ -153,7 +169,9 @@ def courseSearchPage(request):
 			# Extract non empty fields and search
 			# print "Query course: "
 			# print request.POST['name']
-			return render(request, 'webapp/courseSearchResults.html')	
+			return render(request, 'webapp/courseSearchResults.html', {
+				'courses': Course.objects.filter(name__icontains=request.POST['name'])
+			})	
 		return render(request, 'webapp/courseSearch.html')
 
 @login_required
@@ -169,7 +187,9 @@ def addReviewPage(request):
 	else:
 		newReview = ReviewForm(request.POST)
 		if newReview.is_valid():
-			newReview.save()
+			review = newReview.save(commit=False)
+			review.idStudent = Student.objects.get(id=request.user.id)
+			review.save()
 
 		return render(
 			request, 

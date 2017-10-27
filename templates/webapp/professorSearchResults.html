@@ -6,9 +6,23 @@
 {% block content %}
 	<div class="container">
 		Resultados de profesores
-		{{ professors }}
+		<div class="row">
+			{% for professor in professors %}
+				<div class="col s5 green lighten-4">
+					<a href="professor/{{ professor.id }}">
+						<div class="icon-block">
+							<h1 class="center green-text"><i class="material-icons">face</i></h1>
+							<h5 class="center">{{ professor.firstname }} {{ professor.lastname }}</h5>
+						</div>
+					</a>
+					<br>
+				</div>
+			{% endfor %}
+		</div>
 	</div>
 {% endblock %}
 
 {% block readyScripts %}
 {% endblock %}
+
+

@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
 	url(r'jsonPage/', views.jsonPage, name='jsonPage'),
 	url(r'profilePage/', views.profilePage, name='profilePage'),
+	url(r'course/([0-9]+)', views.course, name='course'),
 	url(r'addPage/', views.addPage, name='addPage'),
 	url(r'addProfesorPage/', views.addProfesorPage, name='addProfesorPage'),
 	url(r'addCoursePage/', views.addCoursePage, name='addCoursePage'),

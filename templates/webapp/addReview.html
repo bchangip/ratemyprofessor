@@ -8,8 +8,7 @@
 		Add professor
 		<form method='POST' action=''>
 			{% csrf_token %}
-			<!-- {{ addReviewForm }} -->
-			{{ addReviewForm.idProfessor.firstName }}
+			{{ addReviewForm }}
 			<input type="submit" value="Submit">
 		</form>
 	</div>

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}RateMyProfessor - Resultados de profesores{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div>
+			<h5 class="center-align">{{ professorData.firstname }} {{ professorData.lastname }}</h5>
+		</div>
+
+		Reviews:
+
+		<div class='row'>
+			{% for review in reviewsAttached %}
+				<div class='col s12'>
+					<div class="card">
+						<div class="card-content">
+							<div class='row'>
+								<div class="col m3">
+									<div>
+										{{ review.idCourse }}
+									</div>
+									<div>
+										{{ review.idProfessor }}
+									</div>
+								</div>
+
+								<div class="col m3">
+									{% for i in review.rating %}
+										<i class="small material-icons">star</i>
+									{% endfor %}
+								</div>
+
+								<div class="col m6">
+									{{ review.comment }}
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col s6">
+									<div class="left-align">
+											<a href="/webapp/likeReview/{{ review.pk }}" class="waves-effect waves-light btn-large {% if review.userAlreadyLiked %}disabled{% endif %}"><i class="material-icons left">thumb_up</i>{{ review.likes }}</a>
+											<a href="/webapp/dislikeReview/{{ review.pk }}" class="waves-effect waves-light btn-large {% if review.userAlreadyLiked %}disabled{% endif %}"><i class="material-icons left">thumb_down</i>{{ review.dislikes }}</a>
+										
+									</div>
+								</div>
+
+								<div class="col s6">
+									<div class="right-align">
+										User:
+										{{ review.idStudent }}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block readyScripts %}
+{% endblock %}

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 import registration.signals
-from .models import Student, StudentForm, Review, ReviewForm, Course, CourseForm, Professor, ProfessorForm
+from .models import Student, StudentForm, Review, ReviewForm, Course, CourseForm, Professor, ProfessorForm, ReviewLike
 from django.forms import modelformset_factory
 import time
 
@@ -14,9 +14,17 @@ def homepage(request):
 def profilePage(request):
 	studentData = Student.objects.get(pk=request.user.id)
 	if(request.method == 'GET'):
-		# # print(StudentForm(instance=studentData))
-		# print(ReviewForm())
-
+		reviewsAttached = Review.objects.filter(idStudent=request.user.id)
+		for review in reviewsAttached:
+			review.likes = ReviewLike.objects.filter(idReview=review.pk, liked=True).count()
+			review.dislikes = ReviewLike.objects.filter(idReview=review.pk, liked=False).count()
+			review.rating = range(review.rating)
+			if(ReviewLike.objects.filter(idStudent=request.user.id, idReview=review.pk).count() == 0):
+				review.userAlreadyLiked = False
+				print("User hasnt liked yet", review.userAlreadyLiked)
+			else:
+				review.userAlreadyLiked = True
+				print("User already liked", review.userAlreadyLiked)
 		return render(
 			request,
 			'webapp/profile.html',
@@ -31,7 +39,8 @@ def profilePage(request):
 				'interest3': studentData.interest3,
 				'highschool': studentData.highschool,
 				'editProfileForm': StudentForm(instance=studentData),
-				'addReviewForm': ReviewForm()
+				'addReviewForm': ReviewForm(),
+				'reviewsAttached': reviewsAttached
 			}
 		)
 	else:
@@ -108,11 +117,42 @@ def professorSearchPage(request):
 	return render(request, 'webapp/professorSearch.html')
 
 @login_required
+def professor(request, professorId):
+	professorData = Professor.objects.get(id=professorId)
+	reviewsAttached = Review.objects.filter(idProfessor=professorId)
+	for review in reviewsAttached:
+		review.likes = ReviewLike.objects.filter(idReview=review.pk, liked=True).count()
+		review.dislikes = ReviewLike.objects.filter(idReview=review.pk, liked=False).count()
+		review.rating = range(review.rating)
+		if(ReviewLike.objects.filter(idStudent=request.user.id, idReview=review.pk).count() == 0):
+			review.userAlreadyLiked = False
+			print("User hasnt liked yet", review.userAlreadyLiked)
+		else:
+			review.userAlreadyLiked = True
+			print("User already liked", review.userAlreadyLiked)
+	return render(
+		request,
+		'webapp/professor.html',
+		{
+			'professorData': professorData,
+			'reviewsAttached': reviewsAttached
+		}
+	)
+
+@login_required
 def course(request, courseId):
 	courseData = Course.objects.get(id=courseId)
 	reviewsAttached = Review.objects.filter(idCourse=courseId)
 	for review in reviewsAttached:
+		review.likes = ReviewLike.objects.filter(idReview=review.pk, liked=True).count()
+		review.dislikes = ReviewLike.objects.filter(idReview=review.pk, liked=False).count()
 		review.rating = range(review.rating)
+		if(ReviewLike.objects.filter(idStudent=request.user.id, idReview=review.pk).count() == 0):
+			review.userAlreadyLiked = False
+			print("User hasnt liked yet", review.userAlreadyLiked)
+		else:
+			review.userAlreadyLiked = True
+			print("User already liked", review.userAlreadyLiked)
 
 	return render(
 		request, 
@@ -191,6 +231,21 @@ def addReviewPage(request):
 			}
 		)
 
+@login_required
+def dislikeReview(request, idReview):
+	newDislikeReview = ReviewLike(idStudent=Student.objects.get(id=request.user.id), idReview=Review.objects.get(id=idReview), liked=False)
+	print("Disliked saved")
+	newDislikeReview.save()
+	return JsonResponse({'status': "DisLiked saved"}, safe=False)
+
+@login_required
+def likeReview(request, idReview):
+	newLikeReview = ReviewLike(idStudent=Student.objects.get(id=request.user.id), idReview=Review.objects.get(id=idReview), liked=True)
+	print("Liked saved")
+	newLikeReview.save()
+	return JsonResponse({'status': "Liked saved"}, safe=False)
+
+
 
 @login_required
 def searchPage(request):
@@ -198,7 +253,10 @@ def searchPage(request):
 
 @login_required
 def highSchoolRecommendedProfessorsPage(request):
-	return render(request, 'webapp/highSchoolRecommendedProfessors.html')
+
+	return render(request, 'webapp/highSchoolRecommendedProfessors.html', {
+		"professors": Professor.objects.filter(firstname__icontains=request.POST['firstname'], lastname__icontains=request.POST['lastname'])
+	})
 
 @login_required
 def highSchoolRecommendedCoursesPage(request):

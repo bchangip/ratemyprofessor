@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn ratemyprofessor.wsgi --log-file -
+web: python src/manage.py test; gunicorn ratemyprofessor.wsgi --log-file -

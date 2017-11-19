@@ -8,7 +8,18 @@
 		Add professor
 		<form method='POST' action=''>
 			{% csrf_token %}
-			{{ addReviewForm }}
+			<!-- {{ addReviewForm }} -->
+			{% for field in addReviewForm %}
+				{% if field.name == 'rating' %}
+					{{field.name}}
+					<p class="range-field">
+						<input type="range" id="rating" min="1" max="5" name="rating"/>
+					</p>
+				{% else %}
+					{{field.name}}
+					{{field}}
+				{% endif %}
+			{% endfor %}
 			<input type="submit" value="Submit">
 		</form>
 	</div>

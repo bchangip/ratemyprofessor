@@ -6,14 +6,6 @@ from .models import Student, StudentForm, Review, ReviewForm, Course, CourseForm
 from django.forms import modelformset_factory
 import time
 
-# cur.execute('''INSERT INTO student VALUES (1, 'bchangip', 'Bryan', 'Chan', 'xchangip@gmail.com', 'compu', ARRAY['Progra', 'Musica'], 'Bressani')''')
-# # print("Performing SELECT")
-# cur.execute('''SELECT firstname FROM student;''')
-# rows = cur.fetchall()
-# # print rows
-
-
-
 # Create your views here.
 def homepage(request):
 	return render(request, 'webapp/homepage.html')
@@ -43,10 +35,10 @@ def profilePage(request):
 			}
 		)
 	else:
-		studentData = StudentForm(request.POST)
-		if studentData.is_valid():
+		studentDataRequest = StudentForm(request.POST, instance=studentData)
+		if studentDataRequest.is_valid():
 			studentData.save()
-			# print("Perfil actualizado.")
+			print("Perfil actualizado.")
 
 		studentData = Student.objects.get(pk=request.user.id)
 		return render(

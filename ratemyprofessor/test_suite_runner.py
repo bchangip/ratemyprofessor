@@ -8,7 +8,7 @@ Then, make TEST_RUNNER setting a Python path to the HerokuTestSuiteRunner class.
 """
 
 import django
-from django.test.simple import DjangoTestSuiteRunner
+# from django.test.simple import DjangoTestSuiteRunner
 from django.test.runner import DiscoverRunner
 from django.conf import settings
 from django.core.management import call_command

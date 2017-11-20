@@ -39,6 +39,7 @@ def detection(x):
     # si clasificacion_prueba es positiva el comentario es positiva y se denotará que tan positiva
     if cont_malas < cont_buenas:
         clasificaion_prueba = float(cont_buenas / cantidad_palabras)
+        x = "".join(str(i) for i in x)
         return float(cont_buenas / cantidad_palabras) * 10
 
     ##-----------------calificacion = malas o buenas / cantidad_palabras-----------------------
@@ -46,3 +47,4 @@ def detection(x):
 
 texto = raw_input("Ingrese el texto a revisar: ")
 print "la clasificacion es", detection(texto)
+print "".join(str(x) for x in texto)

@@ -81,17 +81,6 @@ WSGI_APPLICATION = 'ratemyprofessor.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-
-import sys
-if 'test' in sys.argv:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ratemyprofessor',
-        'USER': 'runner',
-        'PASSWORD': 'semaphoredb',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
 DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
@@ -109,6 +98,17 @@ DATABASES = {
     # }
     'default': dj_database_url.config()
 }
+import sys
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ratemyprofessor',
+        'USER': 'runner',
+        'PASSWORD': 'semaphoredb',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators

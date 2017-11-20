@@ -47,4 +47,3 @@ def detection(x):
 
 texto = raw_input("Ingrese el texto a revisar: ")
 print "la clasificacion es", detection(texto)
-print "".join(str(x) for x in texto)

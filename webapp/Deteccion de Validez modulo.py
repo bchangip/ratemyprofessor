@@ -3,7 +3,10 @@
 
 
 def detection(x):
-    
+    malisimas = ['estupida', 'estupido', 'estúpido', 'idiota','pendejo', 'tarado', 'imbecil', 'puta', 'mierda', 'cerote', 'cerota', 'puto']
+    malas = ['poco','impuntual','impaciente','desatento','injusto','perdida','poco','inflexible','inutil','desconsiderado', 'inútil','incompetente','tonto', 'tonta',  'flojo', 'ineficiente', 'inepto', 'incapaz', 'pesado', 'abusivo', 'racista', 'machista', 'incomodo']
+    buenas = ['mucho','paciente','justo','util','útil','bueno','atento','puntual','considerado','buena', 'bien', 'excelente', 'interesante', 'esfuerzo', 'esfuerza', 'gusta', 'gusto', 'cómodo', 'comodo']
+    calificacion = 0
     cont_malas=0
     cont_buenas=0
 

@@ -17,20 +17,20 @@ def detection(x):
 
     clasificacion_prueba = 0.0
 
-    x = x.strip()
+    x = x.split(" ")
 
-    cantidad_palabras = len(x.split(" "))
+    cantidad_palabras = len(x)
 
-    for i in range(len(x.split(" "))):
+    for i in range(len(x)):
         # censuramos el comentario
-        if x.split(" ")[i] in malisimas:
-            print "entre"
+        if x[i] in malisimas:
+            x[i] = '####'
+           # print x[i]
             cont_malas = cont_malas + 1
-        if x.split(" ")[i] in malas:
-            print "entre"
+            
+        if x[i] in malas:
             cont_malas = cont_malas + 1
-        if x.split(" ")[i] in buenas:
-            print "entre"
+        if x[i] in buenas:
             cont_buenas = cont_buenas + 1
     # si clasificacion_prueba es negativo el comentario es negativo y se denotará que tan negativo
     if cont_malas > cont_buenas:
@@ -39,7 +39,7 @@ def detection(x):
     # si clasificacion_prueba es positiva el comentario es positiva y se denotará que tan positiva
     if cont_malas < cont_buenas:
         clasificaion_prueba = float(cont_buenas / cantidad_palabras)
-        x = "".join(str(i) for i in x)
+        x = "".join(str(x) for x in texto)
         return float(cont_buenas / cantidad_palabras) * 10
 
     ##-----------------calificacion = malas o buenas / cantidad_palabras-----------------------
@@ -47,3 +47,4 @@ def detection(x):
 
 texto = raw_input("Ingrese el texto a revisar: ")
 print "la clasificacion es", detection(texto)
+print texto

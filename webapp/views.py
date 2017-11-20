@@ -317,14 +317,14 @@ def dislikeReview(request, idReview):
 	newDislikeReview = ReviewLike(idStudent=Student.objects.get(id=request.user.id), idReview=Review.objects.get(id=idReview), liked=False)
 	print("Disliked saved")
 	newDislikeReview.save()
-	return JsonResponse({'status': "DisLiked saved"}, safe=False)
+	return render(request, 'webapp/search.html')
 
 @login_required
 def likeReview(request, idReview):
 	newLikeReview = ReviewLike(idStudent=Student.objects.get(id=request.user.id), idReview=Review.objects.get(id=idReview), liked=True)
 	print("Liked saved")
 	newLikeReview.save()
-	return JsonResponse({'status': "Liked saved"}, safe=False)
+	return render(request, 'webapp/search.html')
 
 
 

@@ -90,6 +90,8 @@ DATABASES = {
         'NAME': 'ratemyprofessor',
         'USER': 'runner',
         'PASSWORD': 'semaphoredb',
+        # 'USER': 'bchangip',
+        # 'PASSWORD': 'bchangip',
         'HOST': 'localhost',
         'PORT': '5432',
     }

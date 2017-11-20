@@ -5,6 +5,7 @@ import registration.signals
 from .models import Student, StudentForm, Review, ReviewForm, Course, CourseForm, Professor, ProfessorForm, ReviewLike
 from django.forms import modelformset_factory
 import time
+import detection
 
 # Create your views here.
 def homepage(request):
@@ -221,6 +222,7 @@ def addReviewPage(request):
 		if newReview.is_valid():
 			review = newReview.save(commit=False)
 			review.idStudent = Student.objects.get(id=request.user.id)
+			review.commentCategory, review.comment = detection.processComment(review.comment)
 			review.save()
 
 		return render(
@@ -253,22 +255,27 @@ def searchPage(request):
 
 @login_required
 def highSchoolRecommendedProfessorsPage(request):
-
 	return render(request, 'webapp/highSchoolRecommendedProfessors.html', {
-		"professors": Professor.objects.filter(firstname__icontains=request.POST['firstname'], lastname__icontains=request.POST['lastname'])
+		"professors": Professor.objects.all()
 	})
 
 @login_required
 def highSchoolRecommendedCoursesPage(request):
-	return render(request, 'webapp/highSchoolRecommendedCourses.html')
+	return render(request, 'webapp/highSchoolRecommendedCourses.html',  {
+		'courses': Course.objects.all()
+	})	
 
 @login_required
 def interestsRecommendedProfessorsPage(request):
-	return render(request, 'webapp/interestsRecommendedProfessors.html')
+	return render(request, 'webapp/interestsRecommendedProfessors.html', {
+		"professors": Professor.objects.all()
+	})
 
 @login_required
 def interestsRecommendedCoursesPage(request):
-	return render(request, 'webapp/interestsRecommendedCourses.html')
+	return render(request, 'webapp/interestsRecommendedCourses.html', {
+		'courses': Course.objects.all()
+	})	
 
 def jsonPage(request):
 	query = request.GET.get('query', '')

@@ -36,3 +36,10 @@ class StudentTestCase(TestCase):
 
 		self.assertEqual(test.username, 'test')
 		print("Testing things")
+
+	def testStudents2(self):
+		test = Student.objects.get(username="test")
+		anotherTest = Student.objects.get(username="test2")
+
+		self.assertEqual(test.username, 'test')
+		print("Testing things")

@@ -44,6 +44,7 @@ def detection(x):
         clasificaion_prueba = float(cont_buenas / cantidad_palabras)
         x = "".join(str(x) for x in texto)
         return float(cont_buenas / cantidad_palabras) * 10
+    return 0
 
         ##-----------------calificacion = malas o buenas / cantidad_palabras-----------------------
 
@@ -65,4 +66,9 @@ def censura(x):
 
     return nuevo
 
-
+def processComment(comment):
+    print("Running detection")
+    commentCategory = detection(comment)
+    cleanedComment = censura(comment)
+    print("Category:"+str(commentCategory))
+    return commentCategory, cleanedComment

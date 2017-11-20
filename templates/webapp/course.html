@@ -15,7 +15,14 @@
 			{% for review in reviewsAttached %}
 				<div class='col s12'>
 					<div class="card">
-						<div class="card-content">
+						<div class="card-content" style="background-color: 
+										{% if review.commentCategory > 0 %}
+											green
+										{% elif review.commentCategory < 0 %}
+											red
+										{% else %}
+											gray
+										{% endif %}">
 							<div class='row'>
 								<div class="col m3">
 									<div>
@@ -50,6 +57,7 @@
 									<div class="right-align">
 										User:
 										{{ review.idStudent }}
+										
 									</div>
 								</div>
 							</div>

@@ -54,6 +54,7 @@ class Review(models.Model):
 	idProfessor = models.ForeignKey(Professor, on_delete=models.CASCADE)
 	rating = models.IntegerField()
 	comment = models.CharField(max_length=300)
+	commentCategory = models.IntegerField(blank=True)
 
 class ReviewForm(ModelForm):
 	class Meta:

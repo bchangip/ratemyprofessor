@@ -3,43 +3,44 @@ from .models import Student, StudentForm, Review, ReviewForm, Course, CourseForm
 
 # Create your tests here.
 
+ITERATIONS = 20
+
 class StudentTestCase(TestCase):
 	def setUp(self):
-		Student.objects.create(
-			username="test",
-			firstname="test",
-			lastname="test",
-			email="test",
-			career="test",
-			interest1="test",
-			interest2="test",
-			interest3="test",
-			highschool="test"
-		)
+		for i in range(ITERATIONS):
+			Student.objects.create(
+				username="test"+str(i),
+				firstname="test"+str(i),
+				lastname="test"+str(i),
+				email="test"+str(i),
+				career="test"+str(i),
+				interest1="test"+str(i),
+				interest2="test"+str(i),
+				interest3="test"+str(i),
+				highschool="test"+str(i)
+			)
 
-		Student.objects.create(
-			username="test2",
-			firstname="test2",
-			lastname="test2",
-			email="test2",
-			career="test2",
-			interest1="test2",
-			interest2="test2",
-			interest3="test2",
-			highschool="test2"
-		)
+			Course.object.create(
+				name="test"+str(i)
+			)
 
-		print("Doing things")
+			Professor.object.create(
+				firstname="test"+str(i),
+				lastname="test"+str(i)
+			)
+
 	def testStudents(self):
-		test = Student.objects.get(username="test")
-		anotherTest = Student.objects.get(username="test2")
+		for i in range(ITERATIONS):
+			test = Student.objects.get(username="test"+str(i))
+			self.assertEqual(test.username, "test"+str(i))
 
-		self.assertEqual(test.username, 'test')
-		print("Testing things")
+	def testCourse(self):
+		for i in range(ITERATIONS):
+			test = Course.objects.get(name="test"+str(i))
+			self.assertEqual(test.name, "test"+str(i))
 
-	def testStudents2(self):
-		test = Student.objects.get(username="test")
-		anotherTest = Student.objects.get(username="test2")
+	def testProfessor(self):
+		for i in range(ITERATIONS):
+			test = Professor.objects.get(firstname="test"+str(i))
+			self.assertEqual(test.lastname, "test"+str(i))
 
-		self.assertEqual(test.username, 'test')
-		print("Testing things")

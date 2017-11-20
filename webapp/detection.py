@@ -24,15 +24,16 @@ def detection(x):
 
     for i in range(len(x)):
         # censuramos el comentario
-        if x[i] in malisimas:
-            x[i] = '####'
-            # print x[i]
-            cont_malas = cont_malas + 1
-
-        if x[i] in malas:
-            cont_malas = cont_malas + 1
-        if x[i] in buenas:
-            cont_buenas = cont_buenas + 1
+        for j in range(len(malisimas)):
+            if x[i]==malisimas[j]:
+                #x[i] = '####'
+                cont_malas = cont_malas + 1
+        for j in range(len(malas)):
+            if x[i]==malas[j]:
+                cont_malas = cont_malas + 1
+        for j in range(len(buenas)):
+            if x[i]==buenas[j]:
+                cont_buenas = cont_buenas + 1
     # si clasificacion_prueba es negativo el comentario es negativo y se denotará que tan negativo
 
 
@@ -43,6 +44,7 @@ def detection(x):
     if cont_malas < cont_buenas:
         clasificaion_prueba = float(cont_buenas / cantidad_palabras)
         x = "".join(str(x) for x in texto)
+        x = censura(x)
         return float(cont_buenas / cantidad_palabras) * 10
     return 0
 

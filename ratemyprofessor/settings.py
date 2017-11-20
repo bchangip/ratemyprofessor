@@ -90,12 +90,13 @@ DATABASES = {
     #     'NAME': 'ratemyprofessor',
     #     'USER': 'bchangip',
     #     'PASSWORD': 'bchangip',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'postgres',
     #     'HOST': 'localhost',
     #     'PORT': '5432',
     # }
     'default': dj_database_url.config()
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators

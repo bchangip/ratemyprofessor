@@ -296,7 +296,7 @@ def addReviewPage(request):
 		if newReview.is_valid():
 			review = newReview.save(commit=False)
 			review.idStudent = Student.objects.get(id=request.user.id)
-			review.commentCategory, review.comment = detection.processComment(review.comment)
+			review.commentCategory, review.comment = processComment(review.comment)
 			review.save()
 
 		return render(

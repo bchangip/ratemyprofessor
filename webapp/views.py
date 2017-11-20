@@ -234,11 +234,6 @@ from django.dispatch import receiver
 
 @receiver(registration.signals.user_registered)
 def userRegistered(sender, user, request, **kwargs):
-	#Create entry in users table
-	# cur.execute("INSERT INTO student VALUES ("+str(user.id)+", '"+str(user.username)+"', '', '', '"+str(user.email)+"', '', ARRAY[]::VARCHAR(15)[], '')")
-
 	#Create user on Student model
 	tempStudent = Student(pk=user.id, username=user.username, email=user.email)
 	tempStudent.save()
-
-	# print "A new user registered, with id:"+str(user.id)+" username:"+str(user.username)+" email:"+str(user.email)

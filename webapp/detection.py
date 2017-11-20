@@ -60,8 +60,9 @@ def censura(x):
 
     for i in range(len(x)):
         # censuramos el comentario
-        if x[i] in malisimas:
-            x[i] = '####'
+        for j in range(len(malisimas)):
+            if x[i]==malisimas[j]:
+                x[i] = '####'
             # print x[i]
     for i in range (len (x)):
         nuevo = nuevo + x[i]+ " "

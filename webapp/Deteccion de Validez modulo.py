@@ -8,9 +8,10 @@ def detection(x):
                  'cerote', 'cerota', 'puto']
     malas = ['poco', 'impuntual', 'impaciente', 'desatento', 'injusto', 'perdida', 'poco', 'inflexible', 'inutil',
              'desconsiderado', 'inútil', 'incompetente', 'tonto', 'tonta', 'flojo', 'ineficiente', 'inepto', 'incapaz',
-             'pesado', 'abusivo', 'racista', 'machista', 'incomodo','mal','malo','mala']
+             'pesado', 'abusivo', 'racista', 'machista', 'incomodo', 'mal', 'malo', 'mala']
     buenas = ['mucho', 'paciente', 'justo', 'util', 'útil', 'bueno', 'atento', 'puntual', 'considerado', 'buena',
-              'bien', 'excelente', 'interesante', 'esfuerzo', 'esfuerza', 'gusta', 'gusto', 'cómodo', 'comodo', 'recomendado','recomendada',]
+              'bien', 'excelente', 'interesante', 'esfuerzo', 'esfuerza', 'gusta', 'gusto', 'cómodo', 'comodo',
+              'recomendado', 'recomendada', ]
     calificacion = 0
     cont_malas = 0
     cont_buenas = 0
@@ -25,14 +26,16 @@ def detection(x):
         # censuramos el comentario
         if x[i] in malisimas:
             x[i] = '####'
-           # print x[i]
+            # print x[i]
             cont_malas = cont_malas + 1
-            
+
         if x[i] in malas:
             cont_malas = cont_malas + 1
         if x[i] in buenas:
             cont_buenas = cont_buenas + 1
     # si clasificacion_prueba es negativo el comentario es negativo y se denotará que tan negativo
+
+
     if cont_malas > cont_buenas:
         clasificaion_prueba = float(cont_malas / cantidad_palabras) * (-1)
         return float(cont_malas / cantidad_palabras) * (-1) * 10
@@ -42,9 +45,24 @@ def detection(x):
         x = "".join(str(x) for x in texto)
         return float(cont_buenas / cantidad_palabras) * 10
 
-    ##-----------------calificacion = malas o buenas / cantidad_palabras-----------------------
+        ##-----------------calificacion = malas o buenas / cantidad_palabras-----------------------
 
 
-texto = raw_input("Ingrese el texto a revisar: ")
-print "la clasificacion es", detection(texto)
-print texto
+def censura(x):
+    malisimas = ['estupida', 'estupido', 'estúpido', 'idiota', 'pendejo', 'tarado', 'imbecil', 'puta', 'mierda',
+                 'cerote', 'cerota', 'puto']
+    x = x.split(" ")
+    nuevo = ""
+    cantidad_palabras = len(x)
+
+    for i in range(len(x)):
+        # censuramos el comentario
+        if x[i] in malisimas:
+            x[i] = '####'
+            # print x[i]
+    for i in range (len (x)):
+        nuevo = nuevo + x[i]+ " "
+
+    return nuevo
+
+

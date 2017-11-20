@@ -20,11 +20,11 @@ class StudentTestCase(TestCase):
 				highschool="test"+str(i)
 			)
 
-			Course.object.create(
+			Course.objects.create(
 				name="test"+str(i)
 			)
 
-			Professor.object.create(
+			Professor.objects.create(
 				firstname="test"+str(i),
 				lastname="test"+str(i)
 			)

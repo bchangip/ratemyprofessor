@@ -5,7 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-	<title>{% block title %}{% endblock %}</title>
+	<title>UVGmail {% block title %}{% endblock %}</title>
 
 	<!-- CSS  -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -17,20 +17,20 @@
 	<div class="navbar-fixed">
 		<nav class="light-green lighten-1" role="navigation">
 			<div class="nav-wrapper container">
-				<a id="logo-container" href="/webapp/" class="brand-logo">RateMyProfessor</a>
-				<ul class="right hide-on-med-and-down">
+				<a id="logo-container" href="/webapp/" class="brand-logo">UVGmail</a>
+				<!-- <ul class="right hide-on-med-and-down">
 					{% if user.is_authenticated %}
 						<li>Bienvenido {{user.username}}</li>
 						<li><a href="/accounts/logout/">Salir</a></li>
 					{% else %}
 						<li><a href="/accounts/login/">Ingresar</a></li>
 					{% endif %}
-				</ul>
+				</ul> -->
 
 				<ul id="nav-mobile" class="side-nav fixed grey lighten-1" style="width: 90px; margin-top: 65px">
-					<li><a href="/webapp/searchPage" style="height: 90px"><i class="material-icons large">search</i></a></li>
-					<li><a href="/webapp/addPage" style="height: 90px"><i class="material-icons large">add</i></a></li>
-					<li><a href="/webapp/profilePage" style="height: 90px"><i class="material-icons large">person</i></a></li>
+					<!-- <li><a href="/webapp/searchPage" style="height: 90px"><i class="material-icons large">search</i></a></li> -->
+					<li><a href="/webapp/email" style="height: 90px"><i class="material-icons large">fiber_new</i></a></li>
+					<!-- <li><a href="/webapp/profilePage" style="height: 90px"><i class="material-icons large">person</i></a></li> -->
 				</ul>
 				<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
 			</div>

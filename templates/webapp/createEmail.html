@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block title %}RateMyProfessor - Agregar{% endblock %}
+{% block title %}Enviar correo{% endblock %}
 
 {% block content %}
 	<div class="container">
-		Add professor
+		Enviar correo
 		<form method='POST' action=''>
 			{% csrf_token %}
-			{{ addProfessorForm }}
+			{{ createEmailForm }}
 			<input type="submit" value="Submit">
 		</form>
 	</div>

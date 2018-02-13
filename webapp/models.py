@@ -6,68 +6,12 @@ import django.contrib.postgres.fields as postgresModule
 
 # Create your models here.
 
-class Student(models.Model):
-	username = models.CharField(max_length=10)
-	firstname = models.CharField(max_length=10)
-	lastname = models.CharField(max_length=10)
-	email = models.EmailField()
-	career = models.CharField(max_length=40)
-	interest1 = models.CharField(max_length=10, blank=True)
-	interest2 = models.CharField(max_length=10, blank=True)
-	interest3 = models.CharField(max_length=10, blank=True)
-	highschool = models.CharField(max_length=40)
+class Email(models.Model):
+	fromEmail = models.CharField(max_length=100)
+	toEmail = models.CharField(max_length=4096)
+	data = models.CharField(max_length=8192)
 
-	def __str__(self):
-		return (self.firstname+" "+self.lastname)
-
-class StudentForm(ModelForm):
+class EmailForm(ModelForm):
 	class Meta:
-		model = Student
-		fields = ['firstname', 'lastname', 'email', 'career', 'interest1', 'interest2', 'interest3', 'highschool']
-	
-class Course(models.Model):
-	name = models.CharField(max_length=20, blank=True)
-
-	def __str__(self):
-		return self.name
-
-class CourseForm(ModelForm):
-	class Meta:
-		model = Course
-		fields = ['name']
-
-class Professor(models.Model):
-	firstname = models.CharField(max_length=10, blank=True)
-	lastname = models.CharField(max_length=10, blank=True)
-
-	def __str__(self):
-		return (self.firstname+" "+self.lastname)
-
-class ProfessorForm(ModelForm):
-	class Meta:
-		model = Professor
-		fields = ['firstname', 'lastname']
-
-class Review(models.Model):
-	idStudent = models.ForeignKey(Student, on_delete=models.CASCADE)
-	idCourse = models.ForeignKey(Course, on_delete=models.CASCADE)
-	idProfessor = models.ForeignKey(Professor, on_delete=models.CASCADE)
-	rating = models.IntegerField()
-	comment = models.CharField(max_length=300)
-	commentCategory = models.IntegerField(blank=True)
-
-class ReviewForm(ModelForm):
-	class Meta:
-		model = Review
-		fields = ['idCourse', 'idProfessor', 'rating', 'comment']
-
-
-class ReviewLike(models.Model):
-	idStudent = models.ForeignKey(Student, on_delete=models.CASCADE)
-	idReview = models.ForeignKey(Review, on_delete=models.CASCADE)
-	liked = models.BooleanField()
-
-class ProfessorLike(models.Model):
-	idStudent = models.ForeignKey(Student, on_delete=models.CASCADE)
-	idProfessor = models.ForeignKey(Professor, on_delete=models.CASCADE)
-	liked = models.BooleanField()
+		model = Email
+		fields = ['fromEmail', 'toEmail', 'data']
